@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_app/core/constants/routing_path.dart';
 import 'package:food_app/core/services/menu_service.dart';
-import 'package:food_app/core/services/navigation.dart';
+import 'package:food_app/core/utils/colors.dart';
 import 'package:food_app/core/utils/text.dart';
 import 'package:food_app/models/food_model.dart';
 import 'package:food_app/views/home/components/admin_food_card.dart';
+import 'package:food_app/views/home/view_model/admin_home_view_model.dart';
+
+final _adminHomeViewModel =
+    ChangeNotifierProvider.autoDispose<AdminHomeViewModel>((ref) {
+  return AdminHomeViewModel();
+});
 
 class AdminHomeView extends ConsumerWidget {
-  AdminHomeView({super.key});
+  const AdminHomeView({super.key});
 
-  NavigationService navigationService = NavigationService.instance;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final vm = ref.watch(_adminHomeViewModel);
     return ValueListenableBuilder(
         valueListenable: ref.read(menuServiceProvider).selectedMenu,
         builder: (BuildContext context, FoodModel selectedMenu, _) {
@@ -23,30 +28,37 @@ class AdminHomeView extends ConsumerWidget {
                   ? Center(
                       child: AppText.regular("No menu is on display"),
                     )
-                  : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 10),
-                    child: Column(
-                        children: [
-                          ...List.generate(
-                            menuService.menu.length,
-                            (index) => Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: AdminFoodCard(
-                                image: menuService.menu[index].image,
-                                name: menuService.menu[index].name,
-                                description: menuService.menu[index].description,
-                                price: menuService.menu[index].price,
+                  : Stack(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 10),
+                          child: Column(
+                            children: [
+                              ...List.generate(
+                                menuService.menu.length,
+                                (index) => Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: AdminFoodCard(
+                                    image: menuService.menu[index].image,
+                                    name: menuService.menu[index].name,
+                                    description:
+                                        menuService.menu[index].description,
+                                    price: menuService.menu[index].price,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                    ],
                   ),
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                navigationService.navigateTo(NavigatorRoutes.menuDetailView);
+                vm.createMenu();
               },
+              backgroundColor: AppColors.kPrimaryColor.withOpacity(0.6),
               child: const Icon(Icons.add),
             ),
           );

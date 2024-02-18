@@ -41,7 +41,7 @@ class UserFoodCard extends StatelessWidget {
               const SizedBox(height: 4),
               AppText.medium(description),
               const SizedBox(height: 4),
-              AppText.regular("N$price"),
+              AppText.regular(price),
             ],
           ),
         )

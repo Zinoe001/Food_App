@@ -56,7 +56,7 @@ class _DashBoardViewState extends State<DashBoardView> {
   List<Widget> _buildScreens() {
     return [
        AdminHomeView(),
-      const UserHomeView(),
+       UserHomeView(),
     ];
   }
 

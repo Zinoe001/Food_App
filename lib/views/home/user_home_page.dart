@@ -5,22 +5,10 @@ import 'package:food_app/core/utils/text.dart';
 import 'package:food_app/models/food_model.dart';
 import 'package:food_app/views/home/components/user_food_card.dart';
 
-class UserHomeView extends ConsumerStatefulWidget {
+class UserHomeView extends ConsumerWidget {
   const UserHomeView({super.key});
   @override
-  ConsumerState<UserHomeView> createState() => _UserHomeViewState();
-}
-
-class _UserHomeViewState extends ConsumerState<UserHomeView> {
-  @override
-  void initState() {
-    setState(() {
-      ref.read(orderServiceProvider).order;
-    });
-    super.initState();
-  }
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ValueListenableBuilder(
         valueListenable: ref.read(orderServiceProvider).selectedOrder,
         builder: (BuildContext context, FoodModel selectedOrder, _) {
@@ -35,23 +23,27 @@ class _UserHomeViewState extends ConsumerState<UserHomeView> {
                   : SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Column(
-                          children: [
-                            ...List.generate(
-                              orderService.order.length,
-                              (index) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
-                                child: UserFoodCard(
-                                  image: orderService.order[index].image,
-                                  name: orderService.order[index].name,
-                                  description:
-                                      orderService.order[index].description,
-                                  price: orderService.order[index].price,
+                        child: Builder(
+                          builder: (context) {
+                            return Column(
+                              children: [
+                                ...List.generate(
+                                  orderService.order.length,
+                                  (index) => Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    child: UserFoodCard(
+                                      image: orderService.order[index].image,
+                                      name: orderService.order[index].name,
+                                      description:
+                                          orderService.order[index].description,
+                                      price: orderService.order[index].price,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
+                              ],
+                            );
+                          }
                         ),
                       ),
                     ),
