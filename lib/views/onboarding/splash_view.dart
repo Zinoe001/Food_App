@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_app/core/constants/routing_path.dart';
+import 'package:food_app/core/services/navigation.dart';
 import 'package:food_app/core/utils/colors.dart';
 import 'package:food_app/core/utils/text.dart';
 import 'package:food_app/views/onboarding/view_model/splash_view_model.dart';
@@ -19,8 +21,10 @@ class SplashView extends ConsumerStatefulWidget {
 class _SplashViewState extends ConsumerState<SplashView> {
   @override
   void initState() {
-    Future.delayed(
-        const Duration(seconds: 3), ref.read(_splashViewModel).initialise);
+    Future.delayed(const Duration(seconds: 3), () {
+      NavigationService.instance
+          .navigateToReplace(NavigatorRoutes.dashBoardView);
+    });
     super.initState();
   }
 

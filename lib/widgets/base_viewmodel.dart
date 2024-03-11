@@ -2,10 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:food_app/core/utils/app_logger.dart';
 import 'package:food_app/models/view_model/view_model_state.dart';
 
-
 class BaseViewModel extends ChangeNotifier {
-  late final _logger = appLogger(BaseViewModel);
-  AppLogger get logger => _logger;
+  // late final _logger = appLogger(BaseViewModel);
+  // AppLogger get logger => _logger;
   //======================================================
   //==================== STATE SECTION ===================
   //======================================================
