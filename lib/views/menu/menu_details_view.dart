@@ -42,93 +42,102 @@ class _MenuDetailViewState extends ConsumerState<MenuDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    _pickImageFromGallery();
-                  },
-                  child: Container(
-                    height: 275,
-                    width: double.infinity,
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                        color: AppColors.kPrimaryColor.withOpacity(0.4),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(16))),
-                    child: _selectedImage != null
-                        ? Image.file(
-                            _selectedImage!,
-                            fit: BoxFit.cover,
-                          )
-                        : Center(
-                            child: Icon(
-                              Icons.image,
-                              size: 52,
-                              color: AppColors.kGrey.shade700,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      _pickImageFromGallery();
+                    },
+                    child: Container(
+                      height: 275,
+                      width: double.infinity,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                          color: AppColors.kPrimaryColor.withOpacity(0.4),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16))),
+                      child: _selectedImage != null
+                          ? Image.file(
+                              _selectedImage!,
+                              fit: BoxFit.cover,
+                            )
+                          : Center(
+                              child: Icon(
+                                Icons.image,
+                                size: 52,
+                                color: AppColors.kGrey.shade700,
+                              ),
                             ),
-                          ),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                AppTextField(
-                  title: "Name",
-                  controller: _nameController,
-                  hintText: "Eba and Egusi",
-                ),
-                const SizedBox(height: 8),
-                AppTextField(
-                  title: "Decription",
-                  controller: _descriptionController,
-                  hintText: "Sed ut perspiciatis unde omnis to....",
-                ),
-                const SizedBox(height: 8),
-                AppTextField(
-                  title: "Price",
-                  controller: _priceController,
-                  hintText: "N500",
-                  keyboardType: TextInputType.number,
-                  formatter: [NairaInputFormatter()],
-                ),
-                const SizedBox(height: 16),
-                ValueListenableBuilder(
-                    valueListenable: ref.read(menuServiceProvider).selectedMenu,
-                    builder: (BuildContext context, FoodModel selectedMenu, _) {
-                      var menuService = ref.read(menuServiceProvider);
-                      return GestureDetector(
-                        onTap: () {
-                          menuService.addMenu(
-                            FoodModel(
-                              image: _selectedImage!,
-                              name: _nameController.text,
-                              description: _descriptionController.text,
-                              price: _priceController.text,
+                  const SizedBox(height: 16),
+                  AppTextField(
+                    title: "Name",
+                    controller: _nameController,
+                    hintText: "Eba and Egusi",
+                  ),
+                  const SizedBox(height: 8),
+                  AppTextField(
+                    title: "Decription",
+                    controller: _descriptionController,
+                    maxLines: 5,
+                    hintText: "Sed ut perspiciatis unde omnis to....",
+                  ),
+                  const SizedBox(height: 8),
+                  AppTextField(
+                    title: "Price",
+                    controller: _priceController,
+                    hintText: "N500",
+                    keyboardType: TextInputType.number,
+                    formatter: [NairaInputFormatter()],
+                  ),
+                  const SizedBox(height: 16),
+                  ValueListenableBuilder(
+                      valueListenable:
+                          ref.read(menuServiceProvider).selectedMenu,
+                      builder:
+                          (BuildContext context, FoodModel selectedMenu, _) {
+                        var menuService = ref.read(menuServiceProvider);
+                        return GestureDetector(
+                          onTap: () {
+                            menuService.addMenu(
+                              FoodModel(
+                                image: _selectedImage!,
+                                name: _nameController.text,
+                                description: _descriptionController.text,
+                                price: _priceController.text,
+                              ),
+                            );
+                            navigationService.navigateToReplace(
+                                NavigatorRoutes.dashBoardView);
+                          },
+                          child: Container(
+                            height: 56,
+                            width: 175,
+                            decoration: BoxDecoration(
+                              color: AppColors.kSecondaryColor,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8)),
                             ),
-                          );
-                          navigationService
-                              .navigateToReplace(NavigatorRoutes.dashBoardView);
-                        },
-                        child: Container(
-                          height: 56,
-                          width: 175,
-                          decoration: BoxDecoration(
-                            color: AppColors.kSecondaryColor,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
+                            child: Center(
+                              child: AppText.button(
+                                "Save",
+                                color: AppColors.kWhite,
+                              ),
+                            ),
                           ),
-                          child: Center(
-                            child: AppText.button("Save",color: AppColors.kWhite,),
-                          ),
-                        ),
-                      );
-                    })
-              ],
+                        );
+                      })
+                ],
+              ),
             ),
           ),
         ),

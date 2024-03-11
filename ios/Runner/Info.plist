@@ -26,6 +26,12 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To allow you to upload photos from your library and customize your profile picture.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To enable you to take photos within the app and share them with friends.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To enable voice messaging and recording features within the app.</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>

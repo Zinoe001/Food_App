@@ -15,6 +15,7 @@ class AppTextField extends StatefulWidget {
   final List<TextInputFormatter> formatter;
   final TextInputType? keyboardType;
   final FocusNode focusNode;
+  final int maxLines;
   late final ValueNotifier<AppTextFieldState> formState;
 
   AppTextField({
@@ -25,6 +26,7 @@ class AppTextField extends StatefulWidget {
     this.validator,
     this.keyboardType,
     this.isPassword = false,
+    this.maxLines = 1,
     this.formatter = const [],
     FocusNode? focusNode,
     ValueNotifier<AppTextFieldState>? formState,
@@ -77,7 +79,7 @@ class _AppTextFieldState extends State<AppTextField> {
                     ),
                     const SizedBox(height: 4),
                     Container(
-                      height: 56,
+                      // height: 56,
                       decoration: BoxDecoration(
                           border: Border.all(
                             color: hasFocus
@@ -95,6 +97,7 @@ class _AppTextFieldState extends State<AppTextField> {
                         keyboardType: widget.keyboardType,
                         obscureText: widget.isPassword,
                         focusNode: widget.focusNode,
+                        maxLines: widget.maxLines,
                         inputFormatters: widget.formatter,
                         style: regularStyle.copyWith(
                             color: AppColors.kBlack.shade800),

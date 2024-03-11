@@ -23,25 +23,24 @@ class AdminHomeView extends ConsumerWidget {
                   ? Center(
                       child: AppText.regular("No menu is on display"),
                     )
-                  : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 10),
-                    child: Column(
-                        children: [
-                          ...List.generate(
-                            menuService.menu.length,
-                            (index) => Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: AdminFoodCard(
-                                image: menuService.menu[index].image,
-                                name: menuService.menu[index].name,
-                                description: menuService.menu[index].description,
-                                price: menuService.menu[index].price,
-                              ),
+                  : ListView(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 10),
+                      children: [
+                        ...List.generate(
+                          menuService.menu.length,
+                          (index) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: AdminFoodCard(
+                              image: menuService.menu[index].image,
+                              name: menuService.menu[index].name,
+                              description: menuService.menu[index].description,
+                              price: menuService.menu[index].price,
                             ),
                           ),
-                        ],
-                      ),
-                  ),
+                        ),
+                      ],
+                    ),
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {

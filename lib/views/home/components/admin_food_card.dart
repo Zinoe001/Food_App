@@ -101,7 +101,7 @@ class _AdminFoodCardState extends ConsumerState<AdminFoodCard> {
                 maxLines: 3,
               ),
               const SizedBox(height: 4),
-              AppText.medium("N${widget.price}"),
+              AppText.medium(widget.price),
             ],
           ),
         )

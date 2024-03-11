@@ -18,9 +18,9 @@ class UserFoodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-       Container(
+        Container(
           height: 125,
           width: 125,
           clipBehavior: Clip.hardEdge,
@@ -39,9 +39,9 @@ class UserFoodCard extends StatelessWidget {
               const SizedBox(height: 4),
               AppText.heading3(name),
               const SizedBox(height: 4),
-              AppText.medium(description),
+              AppText.medium(description.trim()),
               const SizedBox(height: 4),
-              AppText.regular("N$price"),
+              AppText.regular(price),
             ],
           ),
         )
