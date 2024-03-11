@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_app/core/constants/routing_path.dart';
 import 'package:food_app/core/services/menu_service.dart';
-import 'package:food_app/core/services/navigation.dart';
+import 'package:food_app/core/utils/colors.dart';
 import 'package:food_app/core/utils/text.dart';
 import 'package:food_app/models/food_model.dart';
 import 'package:food_app/views/home/components/admin_food_card.dart';
+import 'package:food_app/views/home/view_model/admin_home_view_model.dart';
+
+final _adminHomeViewModel =
+    ChangeNotifierProvider.autoDispose<AdminHomeViewModel>((ref) {
+  return AdminHomeViewModel();
+});
 
 class AdminHomeView extends ConsumerWidget {
-  AdminHomeView({super.key});
+  const AdminHomeView({super.key});
 
-  NavigationService navigationService = NavigationService.instance;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final vm = ref.watch(_adminHomeViewModel);
     return ValueListenableBuilder(
         valueListenable: ref.read(menuServiceProvider).selectedMenu,
         builder: (BuildContext context, FoodModel selectedMenu, _) {
@@ -44,8 +49,9 @@ class AdminHomeView extends ConsumerWidget {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                navigationService.navigateTo(NavigatorRoutes.menuDetailView);
+                vm.createMenu();
               },
+              backgroundColor: AppColors.kPrimaryColor.withOpacity(0.6),
               child: const Icon(Icons.add),
             ),
           );

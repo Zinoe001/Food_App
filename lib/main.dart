@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/core/router/router.dart';
 import 'package:food_app/core/services/navigation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_app/core/utils/colors.dart';
 import 'package:food_app/views/onboarding/splash_view.dart';
 
 void main() {
@@ -35,8 +36,8 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-
         // useMaterial3: true,
+        primaryColor: AppColors.kPrimaryColor,
       ),
       onGenerateRoute: AppRouter.generateRoute,
       navigatorKey: NavigationService.instance.navigatorKey,
